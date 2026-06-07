@@ -1,34 +1,63 @@
-#include "DxLib.h"
 #include "Enemy.h"
+#include "DxLib.h"
 
-Enemy::Enemy(float m_ex)
+Enemy::Enemy(float startX)
 {
-	m_enemyX = m_ex;
-	m_enemyY = -20;
-	m_active = true;
+    m_enemyX = startX;
+    m_enemyY = -30.0f;
+
+    m_isActive = true;
 }
 
 void Enemy::Update()
 {
-	int m_ScreenHeight = 800;
+    m_enemyY += 3.0f;
 
-	//下に移動
-	m_enemyY += 3.0f;
-
-	//画面外に行ったら消す
-	if (m_enemyY > m_ScreenHeight)
-	{
-		m_active = false;
-	}
+    // 画面外へ出たら削除
+    if (m_enemyY > 800)
+    {
+        m_isActive = false;
+    }
 }
 
 //エネミーの描画
-void Enemy::Draw()
+void Enemy::Draw() const
 {
-	DrawBox(
-		(int)m_enemyX, (int)m_enemyY,
-		(int)m_enemyX + 30, (int)m_enemyY + 30,
-		GetColor(255, 0, 0),
-		TRUE
-	);
+    DrawBox(
+        (int)m_enemyX,
+        (int)m_enemyY,
+        (int)m_enemyX + 30,
+        (int)m_enemyY + 30,
+        GetColor(255, 0, 0),
+        TRUE);
+}
+
+void Enemy::Destroy()
+{
+    m_isActive = false;
+}
+
+bool Enemy::IsActive() const
+{
+    return m_isActive;
+}
+
+float Enemy::GetX() const
+{
+    return m_enemyX;
+}
+
+float Enemy::GetY() const
+{
+    return m_enemyY;
+}
+
+int Enemy::GetWidth() const
+{
+    return 30;
+}
+
+int Enemy::GetHeight() const
+{
+    return 30;
 }

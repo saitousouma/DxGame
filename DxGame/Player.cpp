@@ -1,68 +1,77 @@
-#include "DxLib.h"
 #include "Player.h"
+#include "DxLib.h"
 
 Player::Player()
 {
-	m_playerX = 320;
-	m_playerY = 400;
+    m_playerX = 600.0f;
+    m_playerY = 700.0f;
 
-	m_hp = 5;
+    m_playerHP = 5;
 }
 
-void Player::Update()
+void Player::Update(const Input& input)
 {
-	float m_speed = 5.0f;
-	int m_ScreenWidth = 1200;
-	int m_ScreenHeight = 800;
+    const float speed = 6.0f;
 
-	//入力
-	if (CheckHitKey(KEY_INPUT_W))
-	{
-		m_playerY -= m_speed;
-	}
+	if (input.IsPress(KEY_INPUT_W)) m_playerY -= speed;
+	if (input.IsPress(KEY_INPUT_S)) m_playerY += speed;
+	if (input.IsPress(KEY_INPUT_A)) m_playerX -= speed;
+	if (input.IsPress(KEY_INPUT_D)) m_playerX += speed;
 
-	if (CheckHitKey(KEY_INPUT_S))
-	{
-		m_playerY += m_speed;
-	}
-
-	if (CheckHitKey(KEY_INPUT_A))
-	{
-		m_playerX -= m_speed;
-	}
-
-	if (CheckHitKey(KEY_INPUT_D))
-	{
-		m_playerX += m_speed;
-	}
-
-	//画面外処理
-	if (m_playerX < 0)
-	{
-		m_playerX = 0;
-	}
-	else if (m_playerX > m_ScreenWidth)
-	{
-		m_playerX = m_ScreenWidth;
-	}
-
-	if (m_playerY < 0)
-	{
-		m_playerY = 0;
-	}
-	else if (m_playerY > m_ScreenHeight)
-	{
-		m_playerY = m_ScreenHeight;
-	}
+    // 左端
+	if (m_playerX < 0) m_playerX = 0;
+    // 右端
+	if (m_playerX > 1170) m_playerX = 1170;
+    // 上端
+	if (m_playerY < 0) m_playerY = 0;
+    // 下端
+	if (m_playerY > 770) m_playerY = 770;
 }
 
-//プレイヤー描画
-void Player::Draw()
+void Player::Draw() const
 {
-	DrawBox(
-		(int)m_playerX, (int)m_playerY,
-		(int)m_playerX + 30, (int)m_playerY + 30,
-		GetColor(0, 255, 0),
-		TRUE
-	);
+    DrawBox(
+        (int)m_playerX,
+        (int)m_playerY,
+        (int)m_playerX + 30,
+        (int)m_playerY + 30,
+        GetColor(0, 255, 0),
+        TRUE);
+}
+
+void Player::Damage(int value)
+{
+    m_playerHP -= value;
+
+	if (m_playerHP < 0) m_playerHP = 0;
+}
+
+bool Player::IsDead() const
+{
+    return m_playerHP <= 0;
+}
+
+int Player::GetHP() const
+{
+    return m_playerHP;
+}
+
+float Player::GetX() const
+{
+    return m_playerX;
+}
+
+float Player::GetY() const
+{
+    return m_playerY;
+}
+
+int Player::GetWidth() const
+{
+    return 30;
+}
+
+int Player::GetHeight() const
+{
+    return 30;
 }

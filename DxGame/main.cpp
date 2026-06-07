@@ -1,63 +1,32 @@
 #include "DxLib.h"
-#include "main.h"
+#include "Game.h"
 
-int WINAPI WinMain(HINSTANCE hIns, HINSTANCE hPrevIns,
-	LPSTR lpCmdLine, int nCmdShow)
+int WINAPI WinMain(HINSTANCE, HINSTANCE,LPSTR, int)
 {
-	Main main;
-	main.Init();
-	main.Update();
-	main.Exit();
-	return 0;
-}
+    ChangeWindowMode(TRUE);
 
-Main::Main()
-{
+    SetGraphMode(1200,800,32);
 
-}
+    if (DxLib_Init() == -1)
+    {
+        return -1;
+    }
 
-void Main::Init()
-{
-	SetGraphMode(m_ScreenWidth, m_ScreenHeight, 32);
+    SetDrawScreen(DX_SCREEN_BACK);
 
-	//ウィンドウモード
-	ChangeWindowMode(TRUE);
+    Game game;
 
-	//初期化
-	if (DxLib_Init() == -1)
-	{
-		return;
-	}
+    while (ProcessMessage() == 0)
+    {
+        ClearDrawScreen();
 
-	//ダブルバッファリング
-	SetDrawScreen(DX_SCREEN_BACK);
+        game.Update();
+        game.Draw();
 
-	SetFontSize(40);
-}
+        ScreenFlip();
+    }
 
-void Main::Update()
-{
-	//無限ループ
-	while (true)
-	{
-		//画面を消す
-		ClearDrawScreen();
+    DxLib_End();
 
-		//裏画面を表画面にコピー
-		ScreenFlip();
-
-		if (ProcessMessage() < 0)
-		{
-			break;
-		}
-		if (CheckHitKey(KEY_INPUT_ESCAPE))
-		{
-			break;
-		}
-	}
-}
-
-void Main::Exit()
-{
-	DxLib_End();
+    return 0;
 }

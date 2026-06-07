@@ -1,15 +1,15 @@
 #pragma once
 
-class Enemy
+class Bullet
 {
 private:
-    float m_enemyX;
+    float m_bulletX;
 
-    float m_enemyY;
+    float m_bulletY;
 
     bool m_isActive;
 public:
-    Enemy(float startX);
+    Bullet(float startX, float startY);
 
     void Update();
 
@@ -22,8 +22,4 @@ public:
     // 座標取得
     float GetX() const;
     float GetY() const;
-
-    // サイズ取得
-    int GetWidth() const;
-    int GetHeight() const;
 };
