@@ -13,6 +13,7 @@ void Player::Update(const Input& input)
 {
     const float speed = 6.0f;
 
+    //ˆÚ“®ˆ—
 	if (input.IsPress(KEY_INPUT_W)) m_playerY -= speed;
 	if (input.IsPress(KEY_INPUT_S)) m_playerY += speed;
 	if (input.IsPress(KEY_INPUT_A)) m_playerX -= speed;

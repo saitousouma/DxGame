@@ -19,6 +19,7 @@ void Bullet::Update()
     }
 }
 
+//’e‚Ì•`‰æ
 void Bullet::Draw() const
 {
     DrawCircle(

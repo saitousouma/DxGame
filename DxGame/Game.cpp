@@ -20,6 +20,7 @@ void Game::Update()
 {
     m_input.Update();
 
+	//シーンごとのアップデートを分ける
     switch (m_scene)
     {
     case Scene::Title:
@@ -38,6 +39,7 @@ void Game::Update()
 
 void Game::Draw()
 {
+	//テキストの描画
     switch (m_scene)
     {
     case Scene::Title:
@@ -205,6 +207,7 @@ void Game::UpdatePlay()
             continue;
         }
 
+		//プレイヤーとエネミーが当たったらプレイヤーにダメージを与えてエネミーを消す
         if (CheckHit(
             m_player.GetX(),
             m_player.GetY(),
@@ -222,6 +225,7 @@ void Game::UpdatePlay()
         }
     }
 
+	//非アクティブなエネミーと弾を削除
     m_enemies.erase(
         std::remove_if(
             m_enemies.begin(),
@@ -242,12 +246,14 @@ void Game::UpdatePlay()
             }),
         m_bullets.end());
 
+	//プレイヤーのHPが0以下ならゲームオーバー
     if (m_player.IsDead())
     {
         m_isClear = false;
         m_scene = Scene::Result;
     }
 
+	//スコアが1000以上ならゲームクリア
     if (m_score >= 1000)
     {
         m_isClear = true;
@@ -263,6 +269,7 @@ void Game::UpdateResult()
     }
 }
 
+//当たり判定
 bool Game::CheckHit(
     float ax,
     float ay,
