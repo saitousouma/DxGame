@@ -47,13 +47,13 @@ void Game::Draw()
         DrawString(
             500,
             300,
-            "SIMPLE SHOOTING",
+            "DXGAME",
             GetColor(255, 255, 255));
 
         DrawString(
             450,
             400,
-            "PRESS ENTER",
+            "PRESS ENTER TO START",
             GetColor(255, 255, 255));
 
         break;
@@ -226,25 +226,17 @@ void Game::UpdatePlay()
     }
 
 	//非アクティブなエネミーと弾を削除
-    m_enemies.erase(
-        std::remove_if(
-            m_enemies.begin(),
-            m_enemies.end(),
-            [](const Enemy& enemy)
-            {
-                return !enemy.IsActive();
-            }),
-        m_enemies.end());
+    m_enemies.erase(std::remove_if(m_enemies.begin(),m_enemies.end(),[](const Enemy& enemy)
+    {
+        return !enemy.IsActive();
+    }),
+    m_enemies.end());
 
-    m_bullets.erase(
-        std::remove_if(
-            m_bullets.begin(),
-            m_bullets.end(),
-            [](const Bullet& bullet)
-            {
-                return !bullet.IsActive();
-            }),
-        m_bullets.end());
+    m_bullets.erase(std::remove_if(m_bullets.begin(),m_bullets.end(),[](const Bullet& bullet)
+    {
+        return !bullet.IsActive();
+    }),
+    m_bullets.end());
 
 	//プレイヤーのHPが0以下ならゲームオーバー
     if (m_player.IsDead())
