@@ -9,7 +9,7 @@ private:
 
     bool m_isActive;
 public:
-    Enemy(float startX);
+    Enemy(float m_startX);
 
     void Update();
 
