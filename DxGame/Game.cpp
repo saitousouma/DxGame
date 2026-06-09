@@ -40,6 +40,7 @@ void Game::Update()
 void Game::Draw()
 {
 	//テキストの描画
+	//シーンごとにテキストを切り替える
     switch (m_scene)
     {
     case Scene::Title:
