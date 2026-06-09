@@ -1,10 +1,10 @@
 #include "Bullet.h"
 #include "DxLib.h"
 
-Bullet::Bullet(float startX, float startY)
+Bullet::Bullet(float m_startX, float m_startY)
 {
-    m_bulletX = startX;
-    m_bulletY = startY;
+    m_bulletX = m_startX;
+    m_bulletY = m_startY;
 
     m_isActive = true;
 }
@@ -13,10 +13,7 @@ void Bullet::Update()
 {
     m_bulletY -= 10.0f;
 
-    if (m_bulletY < 0)
-    {
-        m_isActive = false;
-    }
+	if (m_bulletY < 0) m_isActive = false;
 }
 
 //’e‚Ì•`‰æ

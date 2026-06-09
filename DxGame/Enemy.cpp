@@ -1,9 +1,9 @@
 #include "Enemy.h"
 #include "DxLib.h"
 
-Enemy::Enemy(float startX)
+Enemy::Enemy(float m_startX)
 {
-    m_enemyX = startX;
+    m_enemyX = m_startX;
     m_enemyY = -30.0f;
 
     m_isActive = true;

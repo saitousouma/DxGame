@@ -9,7 +9,7 @@ private:
 
     bool m_isActive;
 public:
-    Bullet(float startX, float startY);
+    Bullet(float m_startX, float m_startY);
 
     void Update();
 
